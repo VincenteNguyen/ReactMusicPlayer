@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 class App extends Component {
     state = {
-        active: this.props.songs[0],
+        active: this.props.songs[Math.floor(Math.random() * this.props.songs.length)],
         current: 0,
         progress: 0,
         random: false,
