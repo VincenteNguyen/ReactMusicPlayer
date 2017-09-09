@@ -56,7 +56,15 @@ class App extends Component {
 
     play = () => {
         this.setState({ play: true });
-        this.refs.player.play();
+        
+        /*
+        Uncaught (in promise) DOMException: The play() request was interrupted by a new load request.
+        */
+        const playPromise = this.refs.player.play();       
+        if (playPromise !== null) {
+          playPromise.catch(() => { /* discard runtime error */ })
+        }
+
     }
 
     pause = () => {
@@ -88,6 +96,7 @@ class App extends Component {
         this.setState({ current: current, active: active, progress: 0 });
 
         this.refs.player.src = active.url;
+
         this.play();
     }
 
