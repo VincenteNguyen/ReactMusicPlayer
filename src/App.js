@@ -69,7 +69,15 @@ class App extends Component {
     }
 
     end = () => {
-        (this.state.repeat) ? this.play() : this.setState({ play: false });
+      if(this.state.repeat){
+        this.play();
+      }
+      else if(this.state.play){
+        this.next();
+      }
+      else{
+        this.setState({ play: false });
+      }
     }
 
     next = () => {
@@ -122,17 +130,18 @@ class App extends Component {
         let randomClass = classnames('player-btn small random', {'active': this.state.random });
 
         return (
-            <div className="player-container">
-               <div className="App">
-                  <div className="App-header">
-                  <img src={logo} className="App-logo" alt="logo" />
-                  <h2>Welcome to React</h2>
-                  </div>
-                  <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
+          <div>
+            <div className="App">
+              <div className="App-header">
+                <img src={logo} className="App-logo" alt="logo" />
+                <h2>Welcome to React</h2>
+              </div>
+              <p className="App-intro">
+                To get started, edit <code>src/App.js</code> and save to reload.
                   </p>
-               </div>
+            </div>
 
+            <div className="player-container">
                 <audio src={active.url} autoPlay={this.state.play} preload="auto" ref="player"></audio>
 
                 <div className={coverClass} style={{backgroundImage: 'url('+ active.cover +')'}}></div>
@@ -178,6 +187,7 @@ class App extends Component {
 
                 </div>
             </div>
+          </div>
         );
     }
 }
